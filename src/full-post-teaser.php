@@ -28,6 +28,9 @@ if (!defined('ABSPATH')) {
 }
 
 
+/**
+ * Runs filter on full post content
+ */
 add_filter(
     'the_content',
     function ($content) {
@@ -42,4 +45,15 @@ add_filter(
         return $filter->filter($post, $content);
     },
     0
+);
+
+
+/**
+ * Defines text domain for localization
+ */
+add_action(
+    'plugins_loaded',
+    function () {
+        load_plugin_textdomain('full-post-teaser', false, basename(__DIR__).'/languages/');
+    }
 );
