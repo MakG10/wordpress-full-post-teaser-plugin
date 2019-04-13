@@ -17,5 +17,8 @@
   "require": {},
   "require-dev": {
     "phpunit/phpunit": "^8.1"
+  },
+  "scripts": {
+    "build": "ln -s src full-post-teaser && zip -r full-post-teaser.zip full-post-teaser || true && unlink full-post-teaser"
   }
 }
