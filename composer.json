@@ -1,0 +1,21 @@
+{
+  "name": "makg/wordpress-full-post-teaser-plugin",
+  "description": "Post Teaser plugin for Wordpress. It shows excerpts on the first visit to full post page and reveals content after clicking \"read more\" and page reload. It may be useful for increasing page views and ads revenue.",
+  "type": "wordpress-plugin",
+  "license": "GPL3",
+  "authors": [
+    {
+      "name": "MakG",
+      "email": "makg@makg.eu"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MakG\\PostTeaser\\": "src/"
+    }
+  },
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "^8.1"
+  }
+}

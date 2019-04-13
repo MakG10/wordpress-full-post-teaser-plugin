@@ -35,6 +35,8 @@ class ConditionalFilter implements ContentFilterInterface
             return $content;
         }
 
+        $this->visitStorage->save($post);
+
         return $this->childFilter->filter($post, $content);
     }
 }

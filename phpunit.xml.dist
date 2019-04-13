@@ -1,0 +1,16 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="Full Post Teaser Plugin">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+            <exclude>
+                <file>full-post-teaser.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

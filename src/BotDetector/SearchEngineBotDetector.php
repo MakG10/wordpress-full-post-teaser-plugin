@@ -13,6 +13,6 @@ class SearchEngineBotDetector implements BotDetectorInterface
 
         $userAgent = $env['HTTP_USER_AGENT'] ?? '';
 
-        return preg_match('/bot|crawl|slurp|spider|mediapartners/i', $userAgent);
+        return preg_match('/bot|crawl|slurp|spider|mediapartners|Bing|AOL/i', $userAgent);
     }
 }
