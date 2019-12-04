@@ -34,7 +34,18 @@ if (!defined('ABSPATH')) {
 add_filter(
     'the_content',
     function ($content) {
+        // Render read more button only on the post page - skip in admin panel, rest api requests etc.
+        if (!is_singular()) {
+            return $content;
+        }
+
         global $post;
+        global $page;
+
+        // If the post is paginated, then render read more button only on the first page
+        if (isset($page) && $page > 1) {
+            return $content;
+        }
 
         $appendReadMoreFilter = new AppendReadMore();
         $botDetector = new SearchEngineBotDetector();
@@ -45,6 +56,19 @@ add_filter(
         return $filter->filter($post, $content);
     },
     0
+);
+
+
+/**
+ * Enables session
+ */
+add_action(
+    'init',
+    function () {
+        if (session_status() === PHP_SESSION_NONE && PHP_SAPI !== 'cli') {
+            session_start();
+        }
+    }
 );
 
 

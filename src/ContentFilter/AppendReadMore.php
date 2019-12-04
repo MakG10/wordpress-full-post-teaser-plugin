@@ -10,10 +10,10 @@ class AppendReadMore implements ContentFilterInterface
      */
     public function filter(\WP_Post $post, string $content): string
     {
-        $excerpt = $this->extractExcerpt($post);
+        $excerpt = $this->extractExcerpt($post, $content);
 
         // If excerpt and content are identical, it means that no excerpt was set and there is no need to append "read more".
-        if ($excerpt !== $post->post_content) {
+        if ($excerpt !== $content) {
             $excerpt .= $this->renderReadMoreButton(
                 [
                     'url' => $this->getReadMoreUrl($post),
@@ -24,11 +24,20 @@ class AppendReadMore implements ContentFilterInterface
         return $excerpt;
     }
 
-    private function extractExcerpt(\WP_Post $post): string
+    /**
+     * Extracts excerpt from the post. If there is no excerpt, then return $defaultContent.
+     * It is important that $defaultContent is returned and not $post->post_content,
+     * because content passed to the filter may be just a part of paginated post.
+     *
+     * @param \WP_Post $post
+     * @param $defaultContent
+     * @return string
+     */
+    private function extractExcerpt(\WP_Post $post, $defaultContent): string
     {
         $extendedContent = get_extended($post->post_content);
 
-        return $extendedContent['main'] ?? $post->post_content;
+        return !empty($extendedContent['extended']) ? $extendedContent['main'] : $defaultContent;
     }
 
     private function renderReadMoreButton(array $params)

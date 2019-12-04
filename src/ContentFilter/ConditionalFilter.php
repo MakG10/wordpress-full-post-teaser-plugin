@@ -32,10 +32,10 @@ class ConditionalFilter implements ContentFilterInterface
     public function filter(\WP_Post $post, string $content): string
     {
         if ($this->botDetector->isBot() || $this->visitStorage->has($post) || get_query_var('more')) {
+            $this->visitStorage->save($post);
+
             return $content;
         }
-
-        $this->visitStorage->save($post);
 
         return $this->childFilter->filter($post, $content);
     }
